@@ -1,6 +1,4 @@
-Here’s the complete `README.md` file: 
 
-```markdown
 # AI Scraper
 
 AI Scraper is an intelligent web scraping application developed using **Streamlit**, **Llama** from **Groq Cloud**, **Selenium**, and **LangChain**. It provides a user-friendly interface for extracting data from websites and querying the extracted data with natural language questions.
@@ -40,7 +38,7 @@ AI Scraper is an intelligent web scraping application developed using **Streamli
    streamlit run main.py
    ```
 
----
+
 
 ## Usage
 
@@ -104,10 +102,6 @@ AI_Scraper/
 Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
 
 ---
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
