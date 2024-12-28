@@ -60,7 +60,7 @@ Ensure the following are installed:
 ## File Structure  
 ```plaintext
 AI_Scraper/
-├── main.py                  # Main Streamlit app & scrapping model
+├── main.py                  # Main Streamlit app & web scraping logic
 ├── requirements.txt         # List of dependencies
 ├── README.md                # Project documentation
 ├── prase.py                 # Module for processing and parsing raw data
@@ -71,7 +71,7 @@ AI_Scraper/
 
 ## Explanation of Files  
 
-- **`main.py`**: The main application file that integrates the Streamlit UI with the scraping and parsing models.  
+-**`main.py`**: The main application file that integrates the Streamlit UI with the web scraping logic (using Selenium) and parsing models (via Groq Cloud and LangChain).
 - **`parse.py`**: Handles AI-based parsing of scraped content using Groq Cloud's API and LangChain.  
 - **`.env`**: Stores sensitive configuration data such as API keys.  
 - **`requirements.txt`**: Lists all the Python dependencies needed for the project.  
