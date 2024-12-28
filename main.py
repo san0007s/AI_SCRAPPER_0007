@@ -1,6 +1,6 @@
 import streamlit as st
 from selenium.webdriver import Remote, ChromeOptions
-from prase import parse_with_ollama
+from prase import parse_with_chatgroq
 from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
@@ -90,5 +90,5 @@ if "dom_content" in st.session_state:
 
             # Here, you can add your own parsing logic using Ollama or another API
             # For example:
-            parsed_result = parse_with_ollama(dom_chunks, parse_description)  # Placeholder for actual parsing logic
+            parsed_result = parse_with_chatgroq(dom_chunks, parse_description)  # Placeholder for actual parsing logic
             st.write(parsed_result)
