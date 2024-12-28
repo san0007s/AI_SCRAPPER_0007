@@ -56,12 +56,11 @@ Examples:
 
 ```
 AI_Scraper/
-├── main.py                  # Main Streamlit app
+├── main.py                  # Main Streamlit app & scrapping model 
 ├── requirements.txt         # List of dependencies
 ├── README.md                # Project documentation
-├── utils/                   # Helper functions and modules
-├── models/                  # AI and scraping models
-└── data/                    # Temporary data storage
+├── prase.py                 # Module for processing and parsing raw data
+├── .env                     # Environment variables for API keys and configuration
 ```
 
 ---
