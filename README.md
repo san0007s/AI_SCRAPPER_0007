@@ -25,8 +25,8 @@ Ensure the following are installed:
 
 1. Clone this repository:  
    ```bash
-   git clone https://github.com/your-repo/ai-web-scraper.git
-   cd ai-web-scraper
+   git clone <repository-url>
+   cd <repository-folder>
    ```
 
 2. Install dependencies:  
