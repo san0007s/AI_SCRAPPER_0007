@@ -1,34 +1,42 @@
 import streamlit as st
-from selenium.webdriver import Remote, ChromeOptions
-from prase import parse_with_chatgroq
-from selenium.webdriver.chromium.remote_connection import ChromiumRemoteConnection
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
-import os
+from prase import parse_with_chatgroq
+import time
 
-# Load environment variables
-load_dotenv()
-SBR_WEBDRIVER = os.getenv("SBR_WEBDRIVER")
 
 # Web scraping functions
-def scrape_website(website):
-    """Scrapes the website using Selenium and Chrome WebDriver"""
-    st.write("Connecting to Scraping Browser...")
-    sbr_connection = ChromiumRemoteConnection(SBR_WEBDRIVER, "goog", "chrome")
-    with Remote(sbr_connection, options=ChromeOptions()) as driver:
+def scrap_website(website):
+    """Scrapes the website using Chrome WebDriver"""
+    print("Launching Chrome browser>>>")
+
+    # Path to your ChromeDriver
+    chrome_driver = "./chromedriver.exe"
+
+    # Set up Chrome options
+    options = Options()
+    options.add_argument("--headless")  # Uncomment this line if you don't want the browser window to open
+
+    # Set up the Chrome driver
+    driver = webdriver.Chrome(service=Service(chrome_driver), options=options)
+
+    try:
+        # Navigate to the website
         driver.get(website)
-        st.write("Waiting for CAPTCHA to solve...")
-        solve_res = driver.execute(
-            "executeCdpCommand",
-            {
-                "cmd": "Captcha.waitForSolve",
-                "params": {"detectTimeout": 10000},
-            },
-        )
-        st.write("Captcha solve status:", solve_res["value"]["status"])
-        st.write("Navigated! Scraping page content...")
+        print("Page loaded>>>")
+
+        # Wait for the page to load
+        time.sleep(10)
+
+        # Get the page source (HTML)
         html = driver.page_source
         return html
+    finally:
+        # Close the browser
+        driver.quit()
+
 
 def extract_body_content(html_content):
     """Extracts the body content of the webpage"""
@@ -37,6 +45,7 @@ def extract_body_content(html_content):
     if body_content:
         return str(body_content)
     return ""
+
 
 def clean_body_content(body_content):
     """Cleans the body content by removing unwanted elements"""
@@ -50,11 +59,13 @@ def clean_body_content(body_content):
     )
     return cleaned_content
 
+
 def split_dom_content(dom_content, max_length=6000):
     """Splits the DOM content into smaller chunks if it exceeds the max length"""
     return [
-        dom_content[i : i + max_length] for i in range(0, len(dom_content), max_length)
+        dom_content[i: i + max_length] for i in range(0, len(dom_content), max_length)
     ]
+
 
 # Streamlit UI
 st.title("AI Web Scraper")
@@ -66,7 +77,7 @@ if st.button("Scrape Website"):
         st.write("Scraping the website...")
 
         # Scrape the website
-        dom_content = scrape_website(url)
+        dom_content = scrap_website(url)
         body_content = extract_body_content(dom_content)
         cleaned_content = clean_body_content(body_content)
 
